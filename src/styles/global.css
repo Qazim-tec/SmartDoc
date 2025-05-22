@@ -1,0 +1,80 @@
+/* CSS Variables for Theming */
+:root {
+  --primary: #00c6ff;
+  --secondary: #0072ff;
+  --accent: #6e00ff;
+  --text: #2d3748;
+  --text-light: #f8fafc;
+  --bg: #e7eaf1;
+  --bg-secondary: #f7fafc;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --glass: rgba(255, 255, 255, 0.15);
+  --glass-strong: rgba(255, 255, 255, 0.05); /* Added for mobile menu */
+  --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  --border: 1px solid rgba(20, 3, 3, 0.18);
+  --transition: all 0.3s ease;
+  --navbar-height: 60px;
+}
+
+.dark-mode {
+  --primary: #00d2ff;
+  --secondary: #3a7bd5;
+  --accent: #8e2de2;
+  --text: #f8fafc;
+  --text-light: #f8fafc;
+  --bg: #0f172a;
+  --bg-secondary: #1e293b;
+  --card-bg: rgba(15, 23, 42, 0.8);
+  --glass: rgba(15, 23, 42, 0.25);
+  --glass-strong: rgba(15, 23, 42, 0.4); /* Added for mobile menu */
+  --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --border: 1px solid rgba(255, 255, 255, 0.18);
+}
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.6;
+  transition: var(--transition);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 70px 0;
+  }
+}
