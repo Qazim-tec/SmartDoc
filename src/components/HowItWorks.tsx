@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from '../styles/HowItWorks.module.css';
 
 const HowItWorks: React.FC = () => {

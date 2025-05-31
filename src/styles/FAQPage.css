@@ -1,0 +1,22 @@
+/* styles/FAQPage.css */
+.faq-page {
+  padding-top: var(--navbar-height); /* Offset for fixed Navbar (~100px) */
+
+}
+
+.footer {
+  margin-top: auto; /* Push footer to bottom */
+}
+
+/* Ensure section inherits theme styles */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .faq-page {
+    padding-top: calc(var(--navbar-height) + 50px); /* Match mobileMenu top (~110px) */
+  }
+
+  .faq-page section {
+    padding: 60px 0; /* Match FAQ.module.css mobile padding */
+  }
+}

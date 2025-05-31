@@ -1,6 +1,6 @@
 .steps {
   position: relative;
-  padding: 100px 0;
+  padding: 50px 0;
 }
 
 .container {
@@ -8,27 +8,31 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .sectionTitle {
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
+  font-size: 2.2rem;
+  margin: 0 auto 1rem;
   text-align: center;
   background: linear-gradient(90deg, var(--primary), var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  position: relative;
-  display: inline-block;
+  font-family: 'Orbitron', sans-serif;
+  width: 100%;
+  max-width: 700px;
+  line-height: 1.2;
 }
 
 .sectionTitle::after {
   content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
+  display: block;
+  margin: 8px auto 0;
+  width: 60px;
+  height: 3px;
   background: linear-gradient(90deg, var(--primary), var(--accent));
   border-radius: 2px;
 }
@@ -46,14 +50,14 @@
   display: flex;
   justify-content: space-between;
   gap: 30px;
-  margin-top: 50px;
+  margin-top: 5px;
 }
 
 .step {
   flex: 1;
   text-align: center;
   position: relative;
-  padding: 0 20px;
+  padding: 0px;
 }
 
 .stepNumber {
@@ -85,7 +89,8 @@
 }
 
 .step:last-child::before {
-  display: none;
+  content: '';
+  width: 100%;
 }
 
 .stepTitle {
@@ -104,14 +109,94 @@
 @media (max-width: 768px) {
   .stepsContainer {
     flex-direction: column;
-    gap: 40px;
+    gap: 20px;
+  }
+
+  .step {
+    text-align: center;
+    padding: 0 5px;
   }
 
   .step::before {
     display: none;
   }
 
+  .stepNumber {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    margin: 0 8px 0 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .stepTitle {
+    font-size: 1.2rem;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    text-align: left;
+    max-width: 180px;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  .stepDesc {
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+    display: block;
+  }
+
+  .step > .stepNumber,
+  .step > .stepTitle {
+    vertical-align: middle;
+  }
+
   .sectionTitle {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .steps {
+    padding: 30px 0;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1rem;
+  }
+
+  .step {
+    padding: 0 10px;
+  }
+
+  .stepNumber {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+    margin: 0 6px 0 0;
+  }
+
+  .stepTitle {
+    font-size: 1.1rem;
+    max-width: 160px;
+  }
+
+  .stepDesc {
+    font-size: 0.9rem;
+    margin-top: 10px;
   }
 }

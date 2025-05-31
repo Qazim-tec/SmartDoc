@@ -1,0 +1,81 @@
+/* src/styles/AboutUs.module.css */
+.aboutUs {
+  /* min-height: 100vh; */
+  background-color: var(--bg);
+}
+
+.content {
+  flex: 1; /* Grow to push footer down */
+  margin: 0 auto; /* Center content */
+
+}
+
+.section {
+  padding-top: 90px ; /* Match global.css section padding */
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 3rem; /* Move title further down */
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pageSubtitle {
+  font-size: 1.3rem;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  color: var(--text);
+  opacity: 0.8;
+  margin: 0 auto 40px;
+  max-width: 700px;
+}
+
+.footer {
+  margin-top: auto; /* Push footer to bottom */
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: calc(var(--navbar-height) + 40px) 15px 60px; /* Adjust for tablets */
+  }
+
+  .section {
+   padding-top: 40px ;
+  }
+
+  .pageTitle {
+    font-size: 2rem;
+    margin-top: 2rem; /* Adjust for tablets */
+  }
+
+  .pageSubtitle {
+    font-size: 1.1rem;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: calc(var(--navbar-height) + 30px) 10px 5px; /* Adjust for mobile */
+  }
+
+  .section {
+   padding-top: 15px ;
+  }
+
+  .pageTitle {
+    font-size: 1.8rem;
+    margin-top: 1.5rem; /* Adjust for mobile */
+  }
+
+  .pageSubtitle {
+    font-size: 1rem;
+    max-width: 95%;
+  }
+}

@@ -1,51 +1,59 @@
+import React from 'react';
 import styles from '../styles/Benefits.module.css';
+import aiDoctor from '../assets/ai-robot-doctor-analyzing-human-body-scan-data-medical-interface-ai-robot-doctor-analyzing-human-body-scan-data-futuristic-371553142.webp'; // Your image path
 
 const Benefits: React.FC = () => {
   return (
     <section className={styles.benefits} id="benefits">
       <div className={styles.container}>
-        <h2 className={styles.sectionTitle}>Benefits for Medical Students</h2>
-        <p className={styles.sectionSubtitle}>
-          Smart Doctor AI is designed to complement and enhance your medical education.
-        </p>
-        <div className={styles.benefitsGrid}>
-          <div className={styles.benefitCard}>
-            <h3 className={styles.benefitTitle}>24/7 Study Partner</h3>
-            <p className={styles.benefitDesc}>
-              Get answers to your medical questions anytime, without waiting for office hours or study group meetings.
+        <h2 className={styles.sectionTitle}>Why Choose Smart Doctor AI</h2>
+        
+        <div className={styles.benefitsContainer}>
+          <div className={styles.benefitsContent}>
+            <h3 className={styles.benefitsTitle}>Comprehensive AI Healthcare Solutions</h3>
+            <p className={styles.benefitsDesc}>
+              Smart Doctor AI revolutionizes healthcare with advanced diagnostics, personalized wellness plans, and medical education tools.
             </p>
+            
+            <div className={styles.benefitsGrid}>
+              <div className={styles.benefitItem}>
+                <i className="fas fa-user-md"></i>
+                <div>
+                  <h4>24/7 Medical Assistant</h4>
+                  <p>Instant access to AI-powered diagnoses anytime</p>
+                </div>
+              </div>
+              <div className={styles.benefitItem}>
+                <i className="fas fa-heartbeat"></i>
+                <div>
+                  <h4>Personalized Health Plans</h4>
+                  <p>Custom diet and exercise recommendations</p>
+                </div>
+              </div>
+              <div className={styles.benefitItem}>
+                <i className="fas fa-graduation-cap"></i>
+                <div>
+                  <h4>Medical Training</h4>
+                  <p>Case simulations for students and professionals</p>
+                </div>
+              </div>
+              <div className={styles.benefitItem}>
+                <i className="fas fa-chart-line"></i>
+                <div>
+                  <h4>Health Tracking</h4>
+                  <p>Monitor progress with adaptive recommendations</p>
+                </div>
+              </div>
+            </div>
+            
+            <a href="#" className={styles.btn}>Get Started</a>
           </div>
-          <div className={styles.benefitCard}>
-            <h3 className={styles.benefitTitle}>Clinical Reasoning Practice</h3>
-            <p className={styles.benefitDesc}>
-              Develop your diagnostic skills with our case-based learning system that provides immediate feedback.
-            </p>
-          </div>
-          <div className={styles.benefitCard}>
-            <h3 className={styles.benefitTitle}>Personalized Learning</h3>
-            <p className={styles.benefitDesc}>
-              Our AI adapts to your knowledge level and learning style, focusing on areas where you need improvement.
-            </p>
-          </div>
-          <div className={styles.benefitCard}>
-            <h3 className={styles.benefitTitle}>Exam Preparation</h3>
-            <p className={styles.benefitDesc}>
-              Access high-yield questions and explanations tailored to your current coursework and upcoming exams.
-            </p>
-          </div>
-          <div className={styles.benefitCard}>
-            <h3 className={styles.benefitTitle}>Time Efficiency</h3>
-            <p className={styles.benefitDesc}>
-              Quickly find explanations for complex topics without sifting through multiple textbooks and resources.
-            </p>
-          </div>
-          <div className={styles.benefitCard}>
-            <h3 className={styles.benefitTitle}>Confidence Building</h3>
-            <p className={styles.benefitDesc}>
-              Practice clinical scenarios and receive feedback to build confidence before real patient interactions.
-            </p>
+          
+          <div className={styles.benefitsVisual}>
+            <img src={aiDoctor} alt="AI Doctor Benefits" className={styles.doctorImage} />
           </div>
         </div>
+        
       </div>
     </section>
   );

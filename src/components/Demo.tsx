@@ -1,79 +1,48 @@
-import { useEffect, useRef } from 'react';
+import React from 'react';
 import styles from '../styles/Demo.module.css';
+import medicalRobot from '../assets/ai-robot-doctor-analyzing-human-body-scan-data-medical-interface-ai-robot-doctor-analyzing-human-body-scan-data-futuristic-371553142.webp'; // Replace with actual image file name
 
 const Demo: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const playBtnRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    const playBtn = playBtnRef.current;
-
-    if (video && playBtn) {
-      const togglePlay = () => {
-        if (video.paused) {
-          video.play();
-          playBtn.style.display = 'none';
-        } else {
-          video.pause();
-          playBtn.style.display = 'flex';
-        }
-      };
-
-      playBtn.addEventListener('click', togglePlay);
-      video.addEventListener('click', togglePlay);
-
-      return () => {
-        playBtn.removeEventListener('click', togglePlay);
-        video.removeEventListener('click', togglePlay);
-      };
-    }
-  }, []);
-
   return (
     <section className={styles.demo} id="demo">
       <div className={styles.container}>
-        <h2 className={styles.sectionTitle}>See It In Action</h2>
-        <p className={styles.sectionSubtitle}>
-          Watch how Smart Doctor AI can transform your medical learning experience.
-        </p>
+        <h2 className={styles.sectionTitle}>Discover Smart Doctor AI</h2>
         <div className={styles.demoContainer}>
           <div className={styles.demoContent}>
-            <h3 className={styles.demoTitle}>Interactive AI Medical Assistant</h3>
+            <h3 className={styles.demoTitle}>Your AI-Powered Healthcare Companion</h3>
             <p className={styles.demoDesc}>
-              Our AI understands complex medical queries and provides accurate, evidence-based responses in seconds. Practice your diagnostic skills anytime, anywhere.
+              Smart Doctor AI provides real-time differential diagnoses, treatment plans, dietary analysis, exercise suggestions, and practice MCQs for medical and dental students, all tailored to your needs.
             </p>
             <div className={styles.demoFeatures}>
               <div className={styles.demoFeature}>
-                <i className="fas fa-check-circle"></i>
-                <span>Real-time differential diagnosis</span>
+                <i className="fas fa-diagnoses"></i>
+                <span>Accurate Differential Diagnosis</span>
               </div>
               <div className={styles.demoFeature}>
-                <i className="fas fa-check-circle"></i>
-                <span>Case-based learning modules</span>
+                <i className="fas fa-prescription"></i>
+                <span>Personalized Treatment Plans</span>
               </div>
               <div className={styles.demoFeature}>
-                <i className="fas fa-check-circle"></i>
-                <span>Personalized feedback</span>
+                <i className="fas fa-utensils"></i>
+                <span>Dietary Analysis & Plans</span>
               </div>
               <div className={styles.demoFeature}>
-                <i className="fas fa-check-circle"></i>
-                <span>Reference to latest guidelines</span>
+                <i className="fas fa-dumbbell"></i>
+                <span>Custom Exercise Suggestions</span>
+              </div>
+              <div className={styles.demoFeature}>
+                <i className="fas fa-question-circle"></i>
+                <span>MCQ Practice for Students</span>
               </div>
             </div>
-            <a href="#" className={styles.btn}>Try Free Demo</a>
+            <a href="#" className={styles.btn}>Explore Now</a>
           </div>
-          <div className={styles.demoVideo}>
-            <video
-              ref={videoRef}
-              poster="https://i.imgur.com/JqYeZRn.jpg"
-              loop
-            >
-              <source src="https://example.com/medical-ai-demo.mp4" type="video/mp4" />
-            </video>
-            <button className={styles.playBtn} ref={playBtnRef}>
-              <i className="fas fa-play"></i>
-            </button>
+          <div className={styles.demoVisual}>
+            <img
+              src={medicalRobot}
+              alt="Smart Doctor AI Robot"
+              className={styles.robotImage}
+            />
           </div>
         </div>
       </div>

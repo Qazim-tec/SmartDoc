@@ -52,7 +52,7 @@
 .heroTitle {
   font-size: 2.8rem;
   margin-top: 40px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   line-height: 1.2;
   font-family: 'Orbitron', sans-serif;
 }
@@ -64,11 +64,12 @@
 }
 
 .heroSubtitle {
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   margin-bottom: 20px;
   opacity: 0.8;
   max-width: 500px;
   margin-bottom: 80px;
+  
 }
 
 .heroBtns {
@@ -158,7 +159,14 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  scrollbar-width: none; /* Firefox: Hide scrollbar */
+  -ms-overflow-style: none; /* IE/Edge: Hide scrollbar */
 }
+
+.chatMessages::-webkit-scrollbar {
+  display: none; /* Chrome/Safari: Hide scrollbar */
+}
+
 
 .message {
   max-width: 85%;
@@ -294,6 +302,11 @@
 
 
 @media (max-width: 992px) {
+
+   .container {
+    padding: 0 10px; /* Reduced from 20px to 10px to decrease left/right space */
+  }
+
   .heroWrapper {
     flex-direction: column;
     align-items: center;
@@ -308,6 +321,7 @@
 
   .heroTitle {
     order: 1; /* Title first */
+    margin-bottom: 1px;
   }
 
   .heroSubtitle {

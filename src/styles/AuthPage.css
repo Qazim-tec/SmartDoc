@@ -1,0 +1,233 @@
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to top to avoid cutting off content */
+  min-height: calc(100vh - var(--navbar-height, 80px)); /* Account for navbar */
+  background: linear-gradient(135deg, var(--bg), var(--bg-secondary));
+  padding-top: calc(var(--navbar-height, 80px) + 40px); /* Increased padding to clear navbar */
+  margin-top: var(--navbar-height, 80px); /* Additional margin to push content down */
+  padding-bottom: 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 700px; /* Even wider container for desktop */
+  padding: 40px;
+  text-align: center;
+}
+
+.auth-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  color: var(--text);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.auth-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: var(--border);
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 198, 255, 0.2), transparent);
+  transition: 1s;
+}
+
+.auth-card:hover::before {
+  left: 100%;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.form-group label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: var(--text);
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 14px;
+  border: var(--border);
+  border-radius: 8px;
+  background: var(--glass);
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 198, 255, 0.2);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+  transform: scale(1.02);
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--text-light);
+  border: none;
+  border-radius: 50px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+  animation: roboticHover 1.5s infinite;
+}
+
+.auth-btn:hover {
+  transform: translateY(-3px) rotateX(10deg);
+  box-shadow: 0 8px 25px rgba(0, 198, 255, 0.5);
+}
+
+.auth-btn i {
+  animation: iconPulse 1.5s infinite;
+}
+
+.auth-link {
+  margin-top: 25px;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.auth-link a {
+  color: var(--primary);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.auth-link a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #ff4d4f;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.success-message {
+  color: var(--primary);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow: 0 0 5px var(--primary), 0 0 10px var(--secondary);
+  }
+  50% {
+    text-shadow: 0 0 10px var(--primary), 0 0 20px var(--secondary);
+  }
+}
+
+@keyframes roboticHover {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px) rotateX(5deg);
+  }
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-page {
+    padding-top: calc(var(--navbar-height, 80px) + 30px); /* Adjusted for mobile */
+    margin-top: var(--navbar-height, 80px); /* Ensure content clears navbar */
+    padding-bottom: 20px;
+  }
+
+  .auth-container {
+    padding: 15px;
+    max-width: 95%; /* Use more screen space on mobile */
+  }
+
+  .auth-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .auth-card {
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  .auth-btn {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .form-group input,
+  .form-group select {
+    max-width: 650px; /* Even wider input fields on desktop */
+  }
+}
