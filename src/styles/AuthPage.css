@@ -2,11 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: flex-start; /* Align to top to avoid cutting off content */
-  min-height: calc(100vh - var(--navbar-height, 80px)); /* Account for navbar */
   background: linear-gradient(135deg, var(--bg), var(--bg-secondary));
   padding-top: calc(var(--navbar-height, 80px) + 40px); /* Increased padding to clear navbar */
   margin-top: var(--navbar-height, 80px); /* Additional margin to push content down */
-  padding-bottom: 40px;
+  /* padding-bottom: 40px; */
   width: 100%;
   box-sizing: border-box;
 }

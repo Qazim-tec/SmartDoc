@@ -1,0 +1,352 @@
+.dietary-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.dietary-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(var(--navbar-height) + 60px) 20px 20px;
+  gap: 20px;
+}
+
+.dietary-card {
+  width: 100%;
+  max-width: 800px;
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  border: var(--border);
+  padding: 25px;
+}
+
+.dietary-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5em;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dietary-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95em;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.form-group .required {
+  color: #dc3545;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: var(--border);
+  border-radius: 8px;
+  background: var(--glass);
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9em;
+  outline: none;
+  transition: var(--transition);
+}
+
+.form-group textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+  background: var(--glass-strong);
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9em;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.submit-button,
+.reset-button,
+.download-pdf-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1em;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+}
+
+.submit-button {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--text-light);
+  animation: roboticHover 1.5s infinite;
+}
+
+.reset-button {
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  color: var(--text-light);
+}
+
+.download-pdf-button {
+  background: linear-gradient(135deg, #28a745, var(--secondary));
+  color: var(--text-light);
+}
+
+.submit-button:hover:not(:disabled),
+.reset-button:hover:not(:disabled),
+.download-pdf-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 198, 255, 0.4);
+}
+
+.submit-button:disabled,
+.reset-button:disabled,
+.download-pdf-button:disabled {
+  background: var(--secondary);
+  cursor: not-allowed;
+}
+
+.loading-dots .dots::after {
+  content: '';
+  animation: dots 1s steps(5, end) infinite;
+}
+
+.results-card {
+  width: 100%;
+  max-width: 800px;
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  border: var(--border);
+  padding: 25px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.results-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3em;
+  color: var(--accent);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.results-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.meal-plan, .exercise-routine, .lifestyle-advice {
+  margin-bottom: 15px;
+}
+
+.meal-plan h4, .exercise-routine h4, .lifestyle-advice h4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1em;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.day-plan {
+  background: var(--glass);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.day-plan h5 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1em;
+  color: var(--secondary);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.meal-item {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95em;
+  color: var(--text);
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.meal-item .meal-label {
+  color: var(--primary);
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.meal-item em {
+  color: var(--text-light);
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.exercise-routine p, .lifestyle-advice p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95em;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.warning {
+  color: #dc3545;
+  font-weight: 600;
+  font-size: 0.9em;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60% { content: '...'; }
+}
+
+@keyframes roboticHover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@media (max-width: 768px) {
+  .dietary-content {
+    padding: calc(var(--navbar-height) + 80px) 10px 10px;
+  }
+
+  .dietary-card,
+  .results-card {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .dietary-title {
+    font-size: 1.3em;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.85em;
+    padding: 10px;
+  }
+
+  .form-group textarea {
+    height: 70px;
+  }
+
+  .form-actions,
+  .results-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .submit-button,
+  .reset-button,
+  .download-pdf-button {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .results-title {
+    font-size: 1.1em;
+  }
+
+  .day-plan {
+    padding: 12px;
+  }
+
+  .meal-item {
+    font-size: 0.9em;
+  }
+
+  .meal-item em {
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 480px) {
+  .dietary-title {
+    font-size: 1.2em;
+  }
+
+  .form-group label {
+    font-size: 0.9em;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.8em;
+  }
+
+  .day-plan {
+    padding: 10px;
+  }
+
+  .day-plan h5 {
+    font-size: 1em;
+  }
+
+  .meal-item {
+    font-size: 0.85em;
+  }
+
+  .meal-item em {
+    font-size: 0.8em;
+  }
+}

@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import jsPDF from 'jspdf';
 import '../styles/ChatPage.css';
+import { API_BASE_URL } from '../config/config'; // Import the API base URL
 
 interface Message {
   role: 'user' | 'assistant' | 'typing' | 'system';
@@ -51,7 +52,7 @@ const ChatPage: React.FC = () => {
   const startConversation = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://localhost:7151/api/Chat/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/Chat/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ const ChatPage: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://localhost:7151/api/Chat/chat', {
+      const response = await fetch(`${API_BASE_URL}/api/Chat/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -292,9 +292,8 @@
 
 @media (max-width: 768px) {
   .chat-container {
-    height: calc(100vh - var(--navbar-height));
-    margin: calc(var(--navbar-height) + 10px) auto 0;
-    padding-top: 60px;
+    height: 70vh;
+    margin: calc(var(--navbar-height) + 90px) auto 0;
     width: 100%;
   }
 

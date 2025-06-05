@@ -8,6 +8,9 @@ import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import ChatPage from './pages/ChatPage';
 import Navbar from './components/Navbar';
+import QuickDiagnosisPage from './pages/QuickDiagnosisPage';
+import DietaryPage from './pages/DietaryPage';
+import QuizPage from './pages/QuizPage';
 import Footer from './components/Footer';
 import BackToTop from './components/BackToTop';
 import './styles/global.css';
@@ -33,6 +36,9 @@ const App: React.FC = () => {
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/chat" element={<ChatPage />} />
+            <Route path="/quick-diagnosis" element={<QuickDiagnosisPage />} />
+            <Route path="/dietary-plan" element={<DietaryPage />} />
+            <Route path="/quiz" element={<QuizPage />} />
           </Routes>
         </div>
         <Footer />

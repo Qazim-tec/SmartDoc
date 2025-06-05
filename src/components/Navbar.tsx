@@ -49,7 +49,9 @@ const Navbar: React.FC = () => {
           <Link to="/">Home</Link>
           <Link to="/about">About Us</Link>
           <Link to="/chat">Chat</Link>
-          <a href="#testimonials">Testimonials</a>
+          <Link to="/quick-diagnosis">Quick Diagnosis</Link>
+          <Link to="/dietary-plan">Dietary Plan</Link>
+          <Link to="/quiz">Quiz</Link>
           <Link to="/faq">FAQ</Link>
           {user ? (
             <div className={`${styles.btn} ${styles.userInitials}`}>
@@ -78,8 +80,11 @@ const Navbar: React.FC = () => {
               <Link to="/" onClick={toggleMenu}>Home</Link>
               <Link to="/about" onClick={toggleMenu}>About Us</Link>
               <Link to="/chat" onClick={toggleMenu}>Chat</Link>
-              <a href="#testimonials" onClick={toggleMenu}>Testimonials</a>
+              <Link to="/quick-diagnosis" onClick={toggleMenu}>Quick Diagnosis</Link>
+              <Link to="/dietary-plan" onClick={toggleMenu}>Dietary Plan</Link>
+              <Link to="/quiz" onClick={toggleMenu}>Quiz</Link>
               <Link to="/faq" onClick={toggleMenu}>FAQ</Link>
+             
             </div>
             {user ? (
               <div className={`${styles.mobileSignIn} ${styles.btn}`} onClick={toggleMenu}>
