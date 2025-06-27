@@ -135,6 +135,14 @@
   font-weight: 600;
 }
 
+.instruction-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9em;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 15px;
+}
+
 .question-section {
   display: flex;
   flex-direction: column;
@@ -174,6 +182,27 @@
 
 .option-label input {
   accent-color: var(--primary);
+}
+
+.clear-button {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85em;
+  color: #dc3545;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  text-decoration: underline;
+  transition: var(--transition);
+}
+
+.clear-button:hover:not(:disabled) {
+  color: #c82333;
+}
+
+.clear-button:disabled {
+  color: var(--secondary);
+  cursor: not-allowed;
 }
 
 .navigation {
@@ -347,6 +376,13 @@
   margin: 4px 0;
 }
 
+.missed-explanation {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9em;
+  color: var(--text);
+  margin: 4px 0;
+}
+
 .answer-label {
   color: var(--secondary);
   font-weight: 600;
@@ -427,12 +463,20 @@
     font-size: 1em;
   }
 
+  .instruction-text {
+    font-size: 0.85em;
+  }
+
   .question-text {
     font-size: 0.9em;
   }
 
   .option-label {
     font-size: 0.9em;
+  }
+
+  .clear-button {
+    font-size: 0.8em;
   }
 
   .page-button {
@@ -465,7 +509,8 @@
     font-size: 0.9em;
   }
 
-  .missed-answer {
+  .missed-answer,
+  .missed-explanation {
     font-size: 0.85em;
   }
 }
@@ -497,12 +542,20 @@
     font-size: 0.9em;
   }
 
+  .instruction-text {
+    font-size: 0.8em;
+  }
+
   .question-text {
     font-size: 0.85em;
   }
 
   .option-label {
     font-size: 0.85em;
+  }
+
+  .clear-button {
+    font-size: 0.75em;
   }
 
   .page-button {
@@ -515,7 +568,8 @@
     font-size: 0.85em;
   }
 
-  .missed-answer {
+  .missed-answer,
+  .missed-explanation {
     font-size: 0.8em;
   }
 }

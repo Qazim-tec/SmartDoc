@@ -43,15 +43,15 @@ const Navbar: React.FC = () => {
       <div className={styles.navbarContainer}>
         <Link to="/" className={styles.logo}>
           <i className="fas fa-robot"></i>
-          <span>Smart Doctor AI</span>
+          <span>SmartDoctor</span>
         </Link>
         <div className={styles.navLinks}>
           <Link to="/">Home</Link>
-          <Link to="/about">About Us</Link>
           <Link to="/chat">Chat</Link>
           <Link to="/quick-diagnosis">Quick Diagnosis</Link>
           <Link to="/dietary-plan">Dietary Plan</Link>
           <Link to="/quiz">Quiz</Link>
+          <Link to="/about">About Us</Link>
           <Link to="/faq">FAQ</Link>
           {user ? (
             <div className={`${styles.btn} ${styles.userInitials}`}>

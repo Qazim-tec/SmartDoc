@@ -29,11 +29,13 @@ interface MissedQuestion {
   text: string;
   userAnswer: string;
   correctAnswer: string;
+  explanation: string;
 }
 
 interface QuizResult {
   score: number;
   totalQuestions: number;
+  formattedScore: string;
   missedQuestions: MissedQuestion[];
 }
 
@@ -145,10 +147,22 @@ const QuizPage: React.FC = () => {
 
   // Handle answer selection
   const handleAnswerChange = (questionId: number, option: string) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [questionId]: option,
-    }));
+    console.log(`Selecting answer for question ${questionId}: ${option}`); // Debug log
+    setAnswers((prev) => {
+      const newAnswers = { ...prev, [questionId.toString()]: option };
+      console.log('Updated answers:', newAnswers); // Debug log
+      return newAnswers;
+    });
+  };
+
+  // Clear answer for a question
+  const handleClearAnswer = (questionId: number) => {
+    setAnswers((prev) => {
+      const newAnswers = { ...prev };
+      delete newAnswers[questionId.toString()];
+      console.log('Cleared answer for question', questionId, 'New answers:', newAnswers); // Debug log
+      return newAnswers;
+    });
   };
 
   // Navigate to question
@@ -173,11 +187,14 @@ const QuizPage: React.FC = () => {
       setError('Please select a category.');
       return;
     }
-    if (requireConfirmation && !window.confirm('Are you sure you want to submit?')) {
-      return;
+    if (requireConfirmation && Object.keys(answers).length < TOTAL_QUESTIONS) {
+      if (!window.confirm('You have unanswered questions. They will be marked as incorrect. Proceed with submission?')) {
+        return;
+      }
     }
     setIsLoading(true);
     setError(null);
+    console.log('Submitting quiz with answers:', answers); // Debug log
     try {
       const response = await fetch(`${API_BASE_URL}/api/Quiz/submit`, {
         method: 'POST',
@@ -191,8 +208,12 @@ const QuizPage: React.FC = () => {
           answers,
         }),
       });
-      if (!response.ok) throw new Error('Failed to submit quiz.');
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to submit quiz: ${errorText}`);
+      }
       const data: QuizResult = await response.json();
+      console.log('Quiz submission response:', data); // Debug log
       setResult(data);
       setQuizStarted(false);
     } catch (err) {
@@ -221,41 +242,72 @@ const QuizPage: React.FC = () => {
   const handleDownloadPDF = () => {
     if (!result) return;
     const categoryName = categories.find((c) => c.id === selectedCategory)?.name || 'Unknown';
-    const percentage = ((result.score / result.totalQuestions) * 100).toFixed(0);
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
     const margin = 10;
-    const lineHeight = 5;
+    const lineHeight = 7;
     let yPosition = margin;
+
+    // Helper function to add text with wrapping and page breaks
+    const addTextWithWrap = (text: string, x: number, maxWidth: number) => {
+      const lines = doc.splitTextToSize(text, maxWidth);
+      lines.forEach((line: string) => {
+        if (yPosition > pageHeight - margin - lineHeight) {
+          doc.addPage();
+          yPosition = margin;
+        }
+        doc.text(line, x, yPosition);
+        yPosition += lineHeight;
+      });
+    };
 
     // Header
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(18);
     doc.setTextColor(0, 198, 255); // --primary (#00c6ff)
     doc.text('Smart Doctor AI', pageWidth / 2, yPosition, { align: 'center' });
-    yPosition += 8;
+    yPosition += 10;
 
     // Title
     doc.setFontSize(14);
     doc.setTextColor(0, 114, 255); // --secondary (#0072ff)
     doc.text('Quiz Results', pageWidth / 2, yPosition, { align: 'center' });
-    yPosition += 8;
+    yPosition += 10;
 
     // Category and Score
     doc.setFontSize(12);
     doc.setTextColor(0, 0, 0);
-    doc.text(`Category: ${categoryName}`, margin, yPosition);
-    yPosition += lineHeight + 2;
-    doc.text(`Score: ${result.score}/${result.totalQuestions} (${percentage}%)`, margin, yPosition);
-    yPosition += lineHeight + 2;
+    addTextWithWrap(`Category: ${categoryName}`, margin, pageWidth - 2 * margin);
+    addTextWithWrap(`Score: ${result.formattedScore} (${((result.score / result.totalQuestions) * 100).toFixed(0)}%)`, margin, pageWidth - 2 * margin);
+    yPosition += lineHeight;
+
+    // Missed Questions
+    if (result.missedQuestions.length > 0) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(12);
+      addTextWithWrap('Missed Questions:', margin, pageWidth - 2 * margin);
+      doc.setFont('helvetica', 'normal');
+      result.missedQuestions.forEach((missed, index) => {
+        if (yPosition > pageHeight - margin - 4 * lineHeight) {
+          doc.addPage();
+          yPosition = margin;
+        }
+        addTextWithWrap(`${index + 1}. ${missed.text}`, margin + 5, pageWidth - 2 * margin - 5);
+        addTextWithWrap(`Your Answer: ${missed.userAnswer === 'None' ? 'None (Skipped)' : missed.userAnswer}`, margin + 5, pageWidth - 2 * margin - 5);
+        addTextWithWrap(`Correct Answer: ${missed.correctAnswer}`, margin + 5, pageWidth - 2 * margin - 5);
+        addTextWithWrap(`Explanation: ${missed.explanation}`, margin + 5, pageWidth - 2 * margin - 5);
+        yPosition += lineHeight;
+      });
+    } else {
+      addTextWithWrap('None! Perfect score!', margin, pageWidth - 2 * margin);
+    }
 
     // Encouragement
     doc.setTextColor(0, 198, 255); // --primary
     const encouragement = "Don't give up! Keep pushing to improve your knowledge!";
-    const encouragementLines = doc.splitTextToSize(encouragement, pageWidth - 2 * margin);
-    doc.text(encouragementLines, margin, yPosition);
-    yPosition += encouragementLines.length * lineHeight;
+    addTextWithWrap(encouragement, margin, pageWidth - 2 * margin);
+    yPosition += lineHeight;
 
     // Footer
     doc.setFontSize(8);
@@ -265,11 +317,9 @@ const QuizPage: React.FC = () => {
       month: 'long',
       day: 'numeric',
     });
-    doc.text(`Generated on ${date}`, pageWidth / 2, pageHeight - 8, {
-      align: 'center',
-    });
+    doc.text(`Generated on ${date}`, pageWidth / 2, pageHeight - 8, { align: 'center' });
 
-    doc.save(`SmartDoctorAI_Quiz_Results_${categoryName}.pdf`);
+    doc.save(`SmartDoctorAI_Quiz_Results_${categoryName.replace(/\s+/g, '_')}.pdf`);
   };
 
   if (!user) {
@@ -290,8 +340,6 @@ const QuizPage: React.FC = () => {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const percentageScore = result ? ((result.score / result.totalQuestions) * 100).toFixed(0) : 0;
-
   return (
     <div className="quiz-page">
       <Navbar />
@@ -301,7 +349,9 @@ const QuizPage: React.FC = () => {
             <h2 className="quiz-title">Medical Quiz</h2>
             <div className="category-selection">
               <div className="form-group">
-                <label htmlFor="categoryType">Category Type <span className="required">*</span></label>
+                <label htmlFor="categoryType">
+                  Category Type <span className="required">*</span>
+                </label>
                 <select
                   id="categoryType"
                   value={categoryType}
@@ -352,6 +402,9 @@ const QuizPage: React.FC = () => {
             <div className="timer">
               Time Left: {formatTime(timeLeft)}
             </div>
+            <p className="instruction-text">
+              Note: You may skip questions. Unanswered questions will be marked as incorrect upon submission.
+            </p>
             <div className="question-section">
               {currentQuestions.map((question, index) => (
                 <div key={question.id} className="question-card">
@@ -365,13 +418,20 @@ const QuizPage: React.FC = () => {
                           type="radio"
                           name={`question-${question.id}`}
                           value={option}
-                          checked={answers[question.id] === option}
+                          checked={answers[question.id.toString()] === option}
                           onChange={() => handleAnswerChange(question.id, option)}
                           disabled={isLoading}
                         />
                         {option}: {question[`option${option}` as keyof Question]}
                       </label>
                     ))}
+                    <button
+                      onClick={() => handleClearAnswer(question.id)}
+                      disabled={isLoading || !answers[question.id.toString()]}
+                      className="clear-button"
+                    >
+                      Clear Answer
+                    </button>
                   </div>
                 </div>
               ))}
@@ -381,13 +441,14 @@ const QuizPage: React.FC = () => {
                 {Array.from({ length: TOTAL_QUESTIONS }, (_, i) => {
                   const pageOfQuestion = Math.floor(i / QUESTIONS_PER_PAGE);
                   const isCurrentPage = currentPage === pageOfQuestion;
-                  const isUnanswered = !answers[questions[i]?.id];
+                  const isUnanswered = !answers[questions[i]?.id.toString()];
                   return (
                     <button
                       key={i}
                       onClick={() => handleQuestionSelect(i)}
                       className={`page-button ${isCurrentPage ? 'active' : ''} ${isUnanswered ? 'unanswered' : ''}`}
                       disabled={isLoading}
+                      aria-label={`Go to question ${i + 1}`}
                     >
                       {i + 1}
                     </button>
@@ -437,7 +498,9 @@ const QuizPage: React.FC = () => {
         {result && (
           <div className="results-card">
             <h3 className="results-title">Quiz Results</h3>
-            <p className="score">Score: {result.score}/{result.totalQuestions} ({percentageScore}%)</p>
+            <p className="score">
+              Score: {result.formattedScore} ({((result.score / result.totalQuestions) * 100).toFixed(0)}%)
+            </p>
             <div className="missed-questions">
               <h4>Missed Questions</h4>
               {result.missedQuestions.length === 0 ? (
@@ -449,10 +512,14 @@ const QuizPage: React.FC = () => {
                       <span className="question-label">{index + 1}. Question:</span> {missed.text}
                     </p>
                     <p className="missed-answer">
-                      <span className="answer-label">Your Answer:</span> {missed.userAnswer}
+                      <span className="answer-label">Your Answer:</span>{' '}
+                      {missed.userAnswer === 'None' ? 'None (Skipped)' : missed.userAnswer}
                     </p>
                     <p className="missed-answer">
                       <span className="answer-label">Correct Answer:</span> {missed.correctAnswer}
+                    </p>
+                    <p className="missed-explanation">
+                      <span className="answer-label">Explanation:</span> {missed.explanation}
                     </p>
                   </div>
                 ))
