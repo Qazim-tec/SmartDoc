@@ -6,6 +6,7 @@ import styles from '../styles/Navbar.module.css';
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDiagnosisOpen, setIsDiagnosisOpen] = useState(false);
   const { user, logout } = useAuth();
 
   useEffect(() => {
@@ -47,10 +48,23 @@ const Navbar: React.FC = () => {
         </Link>
         <div className={styles.navLinks}>
           <Link to="/">Home</Link>
-          <Link to="/chat">Chat</Link>
-          <Link to="/quick-diagnosis">Quick Diagnosis</Link>
+          <div 
+            className={styles.dropdown}
+            onMouseEnter={() => setIsDiagnosisOpen(true)}
+            onMouseLeave={() => setIsDiagnosisOpen(false)}
+          >
+            <span className={styles.dropdownToggle}>Diagnosis</span>
+            {isDiagnosisOpen && (
+              <div className={styles.dropdownMenu}>
+                <Link to="/chat">Chat</Link>
+                <Link to="/quick-diagnosis">Quick Diagnosis</Link>
+              </div>
+            )}
+          </div>
           <Link to="/dietary-plan">Dietary Plan</Link>
           <Link to="/quiz">Quiz</Link>
+        </div>
+        <div className={styles.rightNav}>
           <Link to="/about">About Us</Link>
           <Link to="/faq">FAQ</Link>
           {user ? (
@@ -84,7 +98,6 @@ const Navbar: React.FC = () => {
               <Link to="/dietary-plan" onClick={toggleMenu}>Dietary Plan</Link>
               <Link to="/quiz" onClick={toggleMenu}>Quiz</Link>
               <Link to="/faq" onClick={toggleMenu}>FAQ</Link>
-             
             </div>
             {user ? (
               <div className={`${styles.mobileSignIn} ${styles.btn}`} onClick={toggleMenu}>
