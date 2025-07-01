@@ -20,8 +20,10 @@
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  height: calc(80vh - var(--navbar-height));
-  margin: calc(var(--navbar-height) + 80px) auto 20px;
+  height: auto;
+  min-height: calc(200px + 60px + 60px); /* Initial height: chat-body + header + footer */
+  max-height: calc(100vh - var(--navbar-height, 80px) - 20px);
+  margin: calc(var(--navbar-height, 80px) + 80px) auto 10px; /* Increased top margin to clear navbar */
   backdrop-filter: blur(10px);
   z-index: 10;
   padding-top: 10px;
@@ -40,7 +42,9 @@
 }
 
 .chat-body {
-  flex: 1;
+  height: auto;
+  min-height: 200px;
+  max-height: calc(100vh - 200px);
   padding: 20px;
   overflow-y: auto;
   background: var(--bg-secondary);
@@ -54,7 +58,7 @@
 
 .message {
   margin-bottom: 15px;
-  padding: 10px 15px 10px 50px; /* Increased left padding for profile icon */
+  padding: 10px 15px 10px 50px;
   border-radius: 10px;
   max-width: 80%;
   word-wrap: break-word;
@@ -70,7 +74,7 @@
 }
 
 .message.user::before {
-  content: '\1F464'; /* Unicode for user silhouette emoji 👤 */
+  content: '\1F464';
   position: absolute;
   left: 10px;
   top: 50%;
@@ -79,12 +83,12 @@
   height: 30px;
   line-height: 30px;
   text-align: center;
-  border-radius: 50%; /* Circular profile picture */
-  background: var(--glass); /* Glassmorphism background for user icon */
+  border-radius: 50%;
+  background: var(--glass);
   color: var(--text-light);
   font-size: 1.2em;
-  box-shadow: 0 2px 5px rgba(0, 198, 255, 0.3); /* Matches your shadow style */
-  border: 1px solid var(--primary); /* Subtle border to enhance profile pic look */
+  box-shadow: 0 2px 5px rgba(0, 198, 255, 0.3);
+  border: 1px solid var(--primary);
 }
 
 .message.assistant {
@@ -95,7 +99,7 @@
 }
 
 .message.assistant::before {
-  content: '\1F916'; /* Unicode for robot emoji 🤖 */
+  content: '\1F916';
   position: absolute;
   left: 10px;
   top: 50%;
@@ -104,12 +108,12 @@
   height: 30px;
   line-height: 30px;
   text-align: center;
-  border-radius: 50%; /* Circular profile picture */
-  background: linear-gradient(135deg, var(--primary), var(--secondary)); /* Matches assistant message gradient */
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: var(--text-light);
   font-size: 1.2em;
-  box-shadow: 0 2px 5px rgba(0, 198, 255, 0.3); /* Matches your shadow style */
-  border: 1px solid var(--secondary); /* Subtle border to enhance profile pic look */
+  box-shadow: 0 2px 5px rgba(0, 198, 255, 0.3);
+  border: 1px solid var(--secondary);
 }
 
 .message.typing {
@@ -223,17 +227,20 @@
 }
 
 .chat-footer {
-  padding: 15px;
+  position: sticky;
+  bottom: 0;
+  padding: 10px 15px;
   background: var(--card-bg);
   border-top: var(--border);
   display: flex;
   gap: 10px;
+  z-index: 11;
 }
 
 .chat-footer input {
   flex: 1;
-  padding: 10px;
-  border: var(--border);
+  padding: 10px 15px;
+  border: none;
   border-radius: 20px;
   outline: none;
   background: var(--glass);
@@ -292,9 +299,11 @@
 
 @media (max-width: 768px) {
   .chat-container {
-    height: 70vh;
-    margin: calc(var(--navbar-height) + 90px) auto 0;
-    width: 100%;
+    min-height: calc(150px + 50px + 50px);
+    max-height: calc(100vh - var(--navbar-height, 80px) - 20px);
+    margin: calc(var(--navbar-height, 80px) + 90px) auto 10px; /* Increased top margin to clear navbar */
+    width: calc(100% - 20px);
+    padding: 0 10px;
   }
 
   .chat-header {
@@ -303,15 +312,18 @@
   }
 
   .chat-body {
-    padding: 15px;
+    padding: 10px;
+    min-height: 150px;
+    max-height: calc(100vh - 200px);
   }
 
   .chat-footer {
-    padding: 20px;
+    padding: 10px;
   }
 
   .chat-footer input {
     font-size: 0.9em;
+    padding: 8px 12px;
   }
 
   .chat-footer button {
@@ -322,16 +334,16 @@
   .message {
     max-width: 90%;
     font-size: 0.85em;
-    padding-left: 40px; /* Adjusted for smaller icon on mobile */
+    padding-left: 40px;
   }
 
   .message.user::before,
   .message.assistant::before {
-    width: 24px; /* Smaller icon size for mobile */
+    width: 24px;
     height: 24px;
     line-height: 24px;
-    font-size: 1em; /* Smaller emoji size */
-    left: 8px; /* Adjusted position */
+    font-size: 1em;
+    left: 8px;
   }
 
   .diagnosis {
