@@ -9,6 +9,7 @@ const SignInPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { setUser } = useAuth();
   const navigate = useNavigate();
 
@@ -16,6 +17,7 @@ const SignInPage: React.FC = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    setIsLoading(true);
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/Auth/login`, {
@@ -48,6 +50,8 @@ const SignInPage: React.FC = () => {
     } catch (err) {
       setError('Failed to log in. Please check your credentials.');
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,6 +60,11 @@ const SignInPage: React.FC = () => {
       <div className="auth-container">
         <h1 className="auth-title">Sign In to Smart Doctor AI</h1>
         <div className="auth-card">
+          {isLoading && (
+            <div className="spinner-container">
+              <div className="spinner"></div>
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">Email</label>
@@ -66,6 +75,7 @@ const SignInPage: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
+                disabled={isLoading}
               />
             </div>
             <div className="form-group">
@@ -77,11 +87,12 @@ const SignInPage: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
+                disabled={isLoading}
               />
             </div>
             {error && <p className="error-message">{error}</p>}
             {success && <p className="success-message">{success}</p>}
-            <button type="submit" className="btn auth-btn">
+            <button type="submit" className="btn auth-btn" disabled={isLoading}>
               <i className="fas fa-sign-in-alt"></i> Sign In
             </button>
           </form>

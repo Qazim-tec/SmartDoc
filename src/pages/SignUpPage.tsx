@@ -13,6 +13,7 @@ const SignUpPage: React.FC = () => {
   const [role, setRole] = useState('Doctor');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { setUser } = useAuth();
   const navigate = useNavigate();
 
@@ -20,9 +21,11 @@ const SignUpPage: React.FC = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    setIsLoading(true);
 
     if (password !== confirmPassword) {
       setError("Passwords don't match!");
+      setIsLoading(false);
       return;
     }
 
@@ -61,6 +64,8 @@ const SignUpPage: React.FC = () => {
     } catch (err) {
       setError('Failed to register. Please try again.');
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,6 +74,11 @@ const SignUpPage: React.FC = () => {
       <div className="auth-container">
         <h1 className="auth-title">Sign Up for Smart Doctor AI</h1>
         <div className="auth-card">
+          {isLoading && (
+            <div className="spinner-container">
+              <div className="spinner"></div>
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="firstName">First Name</label>
@@ -79,6 +89,7 @@ const SignUpPage: React.FC = () => {
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder="Enter your first name"
                 required
+                disabled={isLoading}
               />
             </div>
             <div className="form-group">
@@ -90,6 +101,7 @@ const SignUpPage: React.FC = () => {
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="Enter your last name"
                 required
+                disabled={isLoading}
               />
             </div>
             <div className="form-group">
@@ -101,6 +113,7 @@ const SignUpPage: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
+                disabled={isLoading}
               />
             </div>
             <div className="form-group">
@@ -112,6 +125,7 @@ const SignUpPage: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
+                disabled={isLoading}
               />
             </div>
             <div className="form-group">
@@ -123,6 +137,7 @@ const SignUpPage: React.FC = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
                 required
+                disabled={isLoading}
               />
             </div>
             <div className="form-group">
@@ -132,6 +147,7 @@ const SignUpPage: React.FC = () => {
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 required
+                disabled={isLoading}
               >
                 <option value="Doctor">Doctor</option>
                 <option value="Patient">Patient</option>
@@ -140,7 +156,7 @@ const SignUpPage: React.FC = () => {
             </div>
             {error && <p className="error-message">{error}</p>}
             {success && <p className="success-message">{success}</p>}
-            <button type="submit" className="btn auth-btn">
+            <button type="submit" className="btn auth-btn" disabled={isLoading}>
               <i className="fas fa-user-plus"></i> Sign Up
             </button>
           </form>

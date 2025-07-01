@@ -1,18 +1,17 @@
 .auth-page {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align to top to avoid cutting off content */
+  align-items: flex-start;
   background: linear-gradient(135deg, var(--bg), var(--bg-secondary));
-  padding-top: calc(var(--navbar-height, 80px) + 40px); /* Increased padding to clear navbar */
-  margin-top: var(--navbar-height, 80px); /* Additional margin to push content down */
-  /* padding-bottom: 40px; */
+  padding-top: calc(var(--navbar-height, 80px) + 40px);
+  margin-top: var(--navbar-height, 80px);
   width: 100%;
   box-sizing: border-box;
 }
 
 .auth-container {
   width: 100%;
-  max-width: 700px; /* Even wider container for desktop */
+  max-width: 700px;
   padding: 40px;
   text-align: center;
 }
@@ -89,6 +88,12 @@
   transform: scale(1.02);
 }
 
+.form-group input:disabled,
+.form-group select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .auth-btn {
   width: 100%;
   padding: 14px;
@@ -105,7 +110,13 @@
   animation: roboticHover 1.5s infinite;
 }
 
-.auth-btn:hover {
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  animation: none;
+}
+
+.auth-btn:hover:not(:disabled) {
   transform: translateY(-3px) rotateX(10deg);
   box-shadow: 0 8px 25px rgba(0, 198, 255, 0.5);
 }
@@ -148,6 +159,28 @@
   animation: fadeIn 0.5s ease-in;
 }
 
+.spinner-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
 @keyframes glowPulse {
   0%, 100% {
     text-shadow: 0 0 5px var(--primary), 0 0 10px var(--secondary);
@@ -186,16 +219,25 @@
   }
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 768px) {
   .auth-page {
-    padding-top: calc(var(--navbar-height, 80px) + 30px); /* Adjusted for mobile */
-    margin-top: var(--navbar-height, 80px); /* Ensure content clears navbar */
+    padding-top: calc(var(--navbar-height, 80px) + 30px);
+    margin-top: var(--navbar-height, 80px);
     padding-bottom: 20px;
   }
 
   .auth-container {
     padding: 15px;
-    max-width: 95%; /* Use more screen space on mobile */
+    max-width: 95%;
   }
 
   .auth-title {
@@ -222,11 +264,16 @@
     padding: 12px;
     font-size: 1rem;
   }
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 @media (min-width: 769px) {
   .form-group input,
   .form-group select {
-    max-width: 650px; /* Even wider input fields on desktop */
+    max-width: 650px;
   }
 }
